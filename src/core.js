@@ -13,7 +13,7 @@ export function modCollection(state, collection, property, value, op, type){
   //content is added or removed from a list 1-by-one
   if (property ==="content"){
     //Stacked has different content structure than free
-    if(state.getIn(["playersById","collections",collection,"layout"])==="stacked"){
+    if(state.getIn(["collections",collection,"layout"])==="stacked"){
       return state.updateIn(
         ["playersById","collections", collection , property],
         0,
@@ -22,7 +22,7 @@ export function modCollection(state, collection, property, value, op, type){
     }
     else {
       return state.updateIn(
-        ["playersById","collections", collection , property],
+        ["collections", collection , property],
         0,
         (op==="add")? content => content.push(value): content => content.filter(row => (row.get(0)!=type || row.get(1)!=value))
       );
@@ -30,7 +30,7 @@ export function modCollection(state, collection, property, value, op, type){
   }
   //visibility and control is a ui-checkbox and returns a new list
   return state.updateIn(
-    ["playersById","collections", collection , property],
+    ["collections", collection , property],
     0,
     current=>value
   );

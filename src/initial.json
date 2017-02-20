@@ -22,43 +22,43 @@
         "durability":1
       }
     }
+  }
+}
+"turn": "you",
+"counters": ["mana", "health", "attack"],
+"collections": {
+  "hand_you": {
+    "id": "hash1",
+    "content": ["cardId", "cardId"],
+    "visibility": ["you"],
+    "control": ["you"],
+    "layout":"stacked"
   },
-  "turn": "you",
-  "counters": ["mana", "health", "attack"],
-  "collections": {
-    "hand_you": {
-      "id": "hash1",
-      "content": ["cardId", "cardId"],
-      "visibility": ["you"],
-      "control": ["you"],
-      "layout":"stacked"
-    },
-    "hand_opp": {
-      "content": ["cardId", "cardId"],
-      "visibility": ["opponent"],
-      "control": ["opponent"],
-      "layout":"stacked"
-    },
-    "deck_you": {
-      "content": ["cardId", "cardId"],
-      "visibility":["you"],
-      "control": ["you"],
-      "layout": "stacked"
-    },
-    "deck_opp": {
-      "content": ["cardId", "cardId"],
-      "visibility":["opponent"],
-      "control": ["opponent"],
-      "layout": "stacked"
-    },
-    "board_both": {
-      "content": [["card","cardId1","x","y","angle"],
-        ["card","cardId2","x","y","angle"],
-        ["card","cardId3","x","y","angle"],
-        ["counter","counterId1","x","y","angle"]],
-      "visibility": ["you", "opponent"],
-      "control": ["you", "opponent"],
-      "layout": "free"
-    }
+  "hand_opp": {
+    "content": ["cardId", "cardId"],
+    "visibility": ["opponent"],
+    "control": ["opponent"],
+    "layout":"stacked"
+  },
+  "deck_you": {
+    "content": ["cardId", "cardId"],
+    "visibility":["you"],
+    "control": ["you"],
+    "layout": "stacked"
+  },
+  "deck_opp": {
+    "content": ["cardId", "cardId"],
+    "visibility":["opponent"],
+    "control": ["opponent"],
+    "layout": "stacked"
+  },
+  "board_both": {
+    "content": [["card","cardId1","x","y","angle"],
+      ["card","cardId2","x","y","angle"],
+      ["card","cardId3","x","y","angle"],
+      ["counter","counterId1","x","y","angle"]],
+    "visibility": ["you", "opponent"],
+    "control": ["you", "opponent"],
+    "layout": "free"
   }
 }

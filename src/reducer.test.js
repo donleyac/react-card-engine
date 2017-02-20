@@ -1,14 +1,8 @@
-import {fromJS, List, Map} from 'immutable';
-import config from './initial.json';
-import {getInitial, modIndicator, modCollection} from './core.js';
+import {Map, fromJS} from 'immutable';
+import reducer from '../src/reducer';
 
-test('Initial State', () => {
-  const state = getInitial();
-  expect(state).toEqual(config);
-});
-
-test('Indicators', () => {
-  const state = Map(fromJS({
+test('handle Indicators', () => {
+  const initialState = Map(fromJS({
     "playersById":{
       "you": {
         "name": "Alex",
@@ -19,7 +13,8 @@ test('Indicators', () => {
       }
     }
   }));
-  const nextState = modIndicator(state, "you", "health", -1);
+  const action = {action: 'INDICATORS', playerId: "you", indicator: "health", modifier: -1};
+  const nextState = reducer(initialState, action);
   expect(nextState).toEqual(Map({
     "playersById": Map({
       "you":Map({
@@ -33,8 +28,8 @@ test('Indicators', () => {
   }));
 });
 
-test('Collections - Stacked', () => {
-  const state = Map(fromJS({
+test('handle Collection - Stacked', () => {
+  const initialState = Map(fromJS({
     "collections": {
       "hand_you": {
         "id": "hash1",
@@ -45,7 +40,8 @@ test('Collections - Stacked', () => {
       }
     }
   }));
-  const nextState_ctrl = modCollection(state, "hand_you", "control", List.of("you","opponent"));
+  const action = {action: 'COLLECTIONS', collection: "hand_you", property: "control", value: List.of("you","opponent")};
+  const nextState = reducer(initialState, action);
   expect(nextState_ctrl).toEqual(Map(fromJS({
     "collections": {
       "hand_you": {
@@ -57,34 +53,9 @@ test('Collections - Stacked', () => {
       }
     }
   })));
-  const nextState_content_add = modCollection(state, "hand_you", "content", "cardId4","add");
-  expect(nextState_content_add).toEqual(Map(fromJS({
-    "collections": {
-      "hand_you": {
-        "id": "hash1",
-        "content": ["cardId1", "cardId2","cardId3","cardId4"],
-        "visibility": ["you"],
-        "control": ["you"],
-        "layout":"stacked"
-      }
-    }
-  })));
-  const nextState_content_rm = modCollection(state, "hand_you", "content", "cardId3","rm");
-  expect(nextState_content_rm).toEqual(Map(fromJS({
-    "collections": {
-      "hand_you": {
-        "id": "hash1",
-        "content": ["cardId1", "cardId2"],
-        "visibility": ["you"],
-        "control": ["you"],
-        "layout":"stacked"
-      }
-    }
-  })));
 });
-
-test('Collections - Free', () => {
-  const state = Map(fromJS({
+test('handle Collection - Free', () => {
+  const initialState = Map(fromJS({
     "collections": {
       "board_both": {
         "content": [["card","cardId1","x","y","angle"],
@@ -97,8 +68,9 @@ test('Collections - Free', () => {
       }
     }
   }));
-  const nextState_content_rm = modCollection(state, "board_both", "content", "cardId3","rm", "card");
-  expect(nextState_content_rm).toEqual(Map(fromJS({
+  const nextState = modCollection(state, collection: "board_both", property:"content", value:"cardId3",op:"rm", type:"card");
+  const nextState = reducer(initialState, action);
+  expect(nextState).toEqual(Map(fromJS({
     "collections": {
       "board_both": {
         "content": [["card","cardId1","x","y","angle"],
