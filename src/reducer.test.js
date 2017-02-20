@@ -1,5 +1,13 @@
-import {Map, fromJS} from 'immutable';
+import {fromJS, List, Map} from 'immutable';
+import config from './initial.json';
 import reducer from '../src/reducer';
+
+test('handle NoInitialState', () => {
+  const state = Map(fromJS(config));
+  const action = {action:'COLLECTIONS',collection:"board_both", property:"content", value:"cardId22",op:"rm",type:"card"}
+  const nextState = reducer(undefined, action);
+  expect(state).toEqual(nextState);
+});
 
 test('handle Indicators', () => {
   const initialState = Map(fromJS({
@@ -42,7 +50,7 @@ test('handle Collection - Stacked', () => {
   }));
   const action = {action: 'COLLECTIONS', collection: "hand_you", property: "control", value: List.of("you","opponent")};
   const nextState = reducer(initialState, action);
-  expect(nextState_ctrl).toEqual(Map(fromJS({
+  expect(nextState).toEqual(Map(fromJS({
     "collections": {
       "hand_you": {
         "id": "hash1",
@@ -68,7 +76,7 @@ test('handle Collection - Free', () => {
       }
     }
   }));
-  const nextState = modCollection(state, collection: "board_both", property:"content", value:"cardId3",op:"rm", type:"card");
+  const action = {action:'COLLECTIONS',collection:"board_both", property:"content", value:"cardId3",op:"rm",type:"card"}
   const nextState = reducer(initialState, action);
   expect(nextState).toEqual(Map(fromJS({
     "collections": {

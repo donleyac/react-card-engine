@@ -1,6 +1,9 @@
 import config from './initial.json';
+import {fromJS, List, Map} from 'immutable';
+
+export const INITIAL_STATE = getInitial();
 export function getInitial() {
-  return config;
+  return Map(fromJS(config));
 }
 export function modIndicator(state, playerId, indicator, modifier){
   return state.updateIn(
@@ -15,7 +18,7 @@ export function modCollection(state, collection, property, value, op, type){
     //Stacked has different content structure than free
     if(state.getIn(["collections",collection,"layout"])==="stacked"){
       return state.updateIn(
-        ["playersById","collections", collection , property],
+        ["collections", collection , property],
         0,
         (op==="add")? content => content.push(value): content => content.filter(elem => elem!=value)
       );

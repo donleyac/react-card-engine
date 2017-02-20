@@ -1,6 +1,8 @@
-import {getInitial, modIndicator, modCollection} from './core.js';
-export default function reducer(state,action){
+import {getInitial, modIndicator, modCollection, INITIAL_STATE} from './core.js';
+export default function reducer(state = INITIAL_STATE,action){
   switch(action.action) {
+    case 'INITIAL_STATE':
+      return getInitial();
     case 'INDICATORS':
       return modIndicator(state, action.playerId, action.indicator, action.modifier);
     case 'COLLECTIONS':

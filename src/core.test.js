@@ -4,7 +4,7 @@ import {getInitial, modIndicator, modCollection} from './core.js';
 
 test('Initial State', () => {
   const state = getInitial();
-  expect(state).toEqual(config);
+  expect(state).toEqual(Map(fromJS(config)));
 });
 
 test('Indicators', () => {
