@@ -1,0 +1,63 @@
+{
+  "playersById": {
+    "you":{
+      "name": "Alex",
+      "indicators": {
+        "health": 29,
+        "attack": 0,
+        "mana": 1,
+        "armor": 0,
+        "damage": 0,
+        "durability":0
+      }
+    },
+    "opponent":{
+      "name": "Ali",
+      "indicators": {
+        "health": 1,
+        "attack": 1,
+        "mana": 1,
+        "armor": 0,
+        "damage": 0,
+        "durability":1
+      }
+    }
+  },
+  "turn": "you",
+  "counters": ["mana", "health", "attack"],
+  "collections": {
+    "hand_you": {
+      "id": "hash1",
+      "content": ["cardId", "cardId"],
+      "visibility": ["you"],
+      "control": ["you","opponent"],
+      "layout":"stacked"
+    },
+    "hand_opp": {
+      "content": ["cardId", "cardId"],
+      "visibility": ["opponent"],
+      "control": ["opponent"],
+      "layout":"stacked"
+    },
+    "deck_you": {
+      "content": ["cardId", "cardId"],
+      "visibility":["you"],
+      "control": ["you"],
+      "layout": "stacked"
+    },
+    "deck_opp": {
+      "content": ["cardId", "cardId"],
+      "visibility":["opponent"],
+      "control": ["opponent"],
+      "layout": "stacked"
+    },
+    "board_both": {
+      "content": [["card","cardId1","x","y","angle"],
+        ["card","cardId2","x","y","angle"],
+        ["counter","counterId1","x","y","angle"]],
+      "visibility": ["you", "opponent"],
+      "control": ["you", "opponent"],
+      "layout": "free"
+    }
+  }
+}

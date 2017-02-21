@@ -1,6 +1,19 @@
 import {fromJS, List, Map} from 'immutable';
 import config from './initial.json';
+import final from './final_test.json';
 import reducer from '../src/reducer';
+
+test('handle actionSet', () => {
+  const state = Map(fromJS(config));
+  const actions = [
+    {action:"INITIAL_STATE"},
+    {action: 'INDICATORS', playerId: "you", indicator: "health", modifier: -1},
+    {action: 'COLLECTIONS', collection: "hand_you", property: "control", value: List.of("you","opponent")},
+    {action:'COLLECTIONS',collection:"board_both", property:"content", value:"cardId3",op:"rm",type:"card"}
+  ];
+  const nextState = actions.reduce(reducer, state);
+  expect(nextState).toEqual(Map(fromJS(final)));
+});
 
 test('handle NoInitialState', () => {
   const state = Map(fromJS(config));
