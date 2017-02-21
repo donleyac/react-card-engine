@@ -6,10 +6,10 @@ import reducer from '../src/reducer';
 test('handle actionSet', () => {
   const state = Map(fromJS(config));
   const actions = [
-    {action:"INITIAL_STATE"},
-    {action: 'INDICATORS', playerId: "you", indicator: "health", modifier: -1},
-    {action: 'COLLECTIONS', collection: "hand_you", property: "control", value: List.of("you","opponent")},
-    {action:'COLLECTIONS',collection:"board_both", property:"content", value:"cardId3",op:"rm",type:"card"}
+    {type:"INITIAL_STATE"},
+    {type: 'INDICATORS', playerId: "you", indicator: "health", modifier: -1},
+    {type: 'COLLECTIONS', collection: "hand_you", property: "control", value: List.of("you","opponent")},
+    {type:'COLLECTIONS',collection:"board_both", property:"content", value:"cardId3",op:"rm",category:"card"}
   ];
   const nextState = actions.reduce(reducer, state);
   expect(nextState).toEqual(Map(fromJS(final)));
@@ -17,7 +17,7 @@ test('handle actionSet', () => {
 
 test('handle NoInitialState', () => {
   const state = Map(fromJS(config));
-  const action = {action:'COLLECTIONS',collection:"board_both", property:"content", value:"cardId22",op:"rm",type:"card"}
+  const action = {type:'COLLECTIONS',collection:"board_both", property:"content", value:"cardId22",op:"rm",category:"card"}
   const nextState = reducer(undefined, action);
   expect(state).toEqual(nextState);
 });
@@ -34,7 +34,7 @@ test('handle Indicators', () => {
       }
     }
   }));
-  const action = {action: 'INDICATORS', playerId: "you", indicator: "health", modifier: -1};
+  const action = {type: 'INDICATORS', playerId: "you", indicator: "health", modifier: -1};
   const nextState = reducer(initialState, action);
   expect(nextState).toEqual(Map({
     "playersById": Map({
@@ -61,7 +61,7 @@ test('handle Collection - Stacked', () => {
       }
     }
   }));
-  const action = {action: 'COLLECTIONS', collection: "hand_you", property: "control", value: List.of("you","opponent")};
+  const action = {type: 'COLLECTIONS', collection: "hand_you", property: "control", value: List.of("you","opponent")};
   const nextState = reducer(initialState, action);
   expect(nextState).toEqual(Map(fromJS({
     "collections": {
@@ -89,7 +89,7 @@ test('handle Collection - Free', () => {
       }
     }
   }));
-  const action = {action:'COLLECTIONS',collection:"board_both", property:"content", value:"cardId3",op:"rm",type:"card"}
+  const action = {type:'COLLECTIONS',collection:"board_both", property:"content", value:"cardId3",op:"rm",category:"card"}
   const nextState = reducer(initialState, action);
   expect(nextState).toEqual(Map(fromJS({
     "collections": {
