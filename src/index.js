@@ -1,8 +1,5 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import core from './core';
+import makeStore from './store.js'
+import startServer from './src/server';
 
-ReactDOM.render(
-  <core />,
-  document.getElementById('root')
-);
+export const store = makeStore();
+startServer();
