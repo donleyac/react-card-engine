@@ -1,5 +1,8 @@
-var makeStore require('./store.js');
-var startServer require('./src/server');
+
+import makeStore from './store';
+import {startServer} from './server';
 
 export const store = makeStore();
-startServer();
+startServer(store);
+
+store.dispatch({type: 'INITIAL_STATE'});

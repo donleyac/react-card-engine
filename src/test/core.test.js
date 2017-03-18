@@ -1,6 +1,6 @@
 import {fromJS, List, Map} from 'immutable';
-import config from './initial.json';
-import {getInitial, modIndicator, modCollection} from './core.js';
+import config from '../initial.json';
+import {getInitial, modIndicator, modCollection} from '../core.js';
 
 test('Initial State', () => {
   const state = getInitial();

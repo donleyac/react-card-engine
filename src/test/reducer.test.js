@@ -1,7 +1,7 @@
 import {fromJS, List, Map} from 'immutable';
-import config from './initial.json';
+import config from '../initial.json';
 import final from './final_test.json';
-import reducer from '../src/reducer';
+import reducer from '../reducer.js';
 
 test('handle actionSet', () => {
   const state = Map(fromJS(config));
