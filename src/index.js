@@ -1,4 +1,3 @@
-
 import makeStore from './store';
 import {startServer} from './server';
 
