@@ -12,7 +12,7 @@ export function modIndicator(state, playerId, indicator, modifier){
     indicator => indicator + modifier
   );
 }
-export function modCollection(state, collection, property, value, op, type){
+export function modCollection(state, collection, property, value, op, category){
   //content is added or removed from a list 1-by-one
   if (property ==="content"){
     //Stacked has different content structure than free
@@ -27,7 +27,7 @@ export function modCollection(state, collection, property, value, op, type){
       return state.updateIn(
         ["collections", collection , property],
         0,
-        (op==="add")? content => content.push(value): content => content.filter(row => (row.get(0)!=type || row.get(1)!=value))
+        (op==="add")? content => content.push(value): content => content.filter(row => (row.get(0)!=category || row.get(1)!=value))
       );
     }
   }
