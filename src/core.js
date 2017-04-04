@@ -5,12 +5,21 @@ export const INITIAL_STATE = getInitial();
 export function getInitial() {
   return Map(fromJS(config));
 }
-export function modIndicator(state, playerId, indicator, modifier){
-  return state.updateIn(
-    ["playersById",playerId, 'indicators', indicator],
-    0,
-    indicator => indicator + modifier
-  );
+export function modIndicator(state, playerId, label, value, op){
+  if (op==="replace"){
+    return state.updateIn(
+      ["playersById",playerId, 'indicators', label],
+      0,
+      indicator => value
+    );
+  }
+  else {
+    return state.updateIn(
+      ["playersById",playerId, 'indicators', label],
+      0,
+      indicator => indicator + value
+    );
+  }
 }
 export function modCollection(state, collection, property, value, op, category){
   //content is added or removed from a list 1-by-one
