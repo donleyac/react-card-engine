@@ -51,11 +51,11 @@
       "control": ["opponent"],
       "layout": "stacked"
     },
-    "board_both": {
-      "content": [["card","cardId1","x","y","angle"],
-        ["card","cardId2","x","y","angle"],
-        ["card","cardId3","x","y","angle"],
-        ["counter","counterId1","x","y","angle"]],
+    "gameboard": {
+      "content": [["card","ace",50, 100, 0],
+        ["card","ace",40,200,0],
+        ["card","king",20,150,0],
+        ["counter","heart",30,60,0]],
       "visibility": ["you", "opponent"],
       "control": ["you", "opponent"],
       "layout": "free"
