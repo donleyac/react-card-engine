@@ -16,73 +16,54 @@ export function modIndicator(state, playerId, label, value, op){
   else {
     return state.updateIn(
       ["playersById",playerId, 'indicators', label],
-      // 0,
+      0,
       indicator => indicator + value
     );
   }
 }
-export function modCollection(state, collection, property, value, op, category){
-
-  let remove = function(list, category )
-
-  //content is added or removed from a list 1-by-one
-  if (property ==="content"){
-    // Stacked has different content structure than free
-    if(state.getIn(["collections",collection,"layout"])==="stacked"){
-      if(op==="add") {
-        return state.updateIn(
-          ["collections", collection , property],
-          0,
-          content => content.push(value)
-        );
-      }
-      else if(op==="rm"){
-        return state.updateIn(
-          ["collections", collection , property],
-          0,
-          content => content.filter(elem => elem!=value)
-        );
-      }
-      //replace
-      else {
-        return state.updateIn(
-          ["collections", collection , property],
-          0,
-          content => value
-        );
-      }
+export function modCollection(state, collect, prop, val, op, misc){
+  if(state.getIn(["collections",collect,"layout"])==="free" && prop==="content"){
+    if(op==="add"){
+      return state.updateIn(
+       ["collections", collect, prop],
+       0,
+       content => content.push(val));
     }
-    //not stacked
+    else if(op==="rm"){
+      return state.updateIn(
+        ["collections", collection , property],
+        0,
+        content => content.delete(content.findIndex(val))
+        // content => content.filter(row => (row.get(0)!=misc || row.get(1)!=val)));
+    }
+    //Replace list, mainly for re-ordering
     else {
-      if(op==="add"){
-        return state.updateIn(
-          ["collections", collection , property],
-          0,
-          content => content.push(value)
-        );
-      }
-      //Todo fix so that it doesnt remove all references to that element
-      else if(op==="rm"){
-        return state.updateIn(
-          ["collections", collection , property],
-          0,
-          content => content.filter(row => (row.get(0)!=category || row.get(1)!=value))
-        );
-      }
-      //replace
-      else {
-        return state.updateIn(
-          ["collections", collection , property],
-          0,
-          content => value
-        );
-      }
+      return state.updateIn(
+        ["collections", collect, prop],
+        0,
+        content => val
     }
   }
-  //If not content, simply replace array
-  return state.updateIn(
-    ["collections", collection , property],
-    0,
-    current=>value
-  );
+  else {
+    if(op==="add"){
+      return state.updateIn(
+       ["collections", collect, prop],
+       0,
+       content => content.push(val));
+    }
+    else if(op==="rm"){
+      return state.updateIn(
+        ["collections", collect, prop],
+        0,
+        content => content.delete(content.findIndex(val))
+        // content => content.filter(elem => elem!=val));
+    }
+    //Replace list, mainly for re-ordering
+    else {
+      return state.updateIn(
+        ["collections", collect, prop],
+        0,
+        content => val
+    }
+  }
 }
