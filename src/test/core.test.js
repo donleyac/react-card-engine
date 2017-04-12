@@ -1,6 +1,6 @@
 import {fromJS, List, Map} from 'immutable';
-import config from './initial.json';
-import {getInitial, modIndicator, modCollection} from './core.js';
+import config from '../initial.json';
+import {getInitial, modIndicator, modCollection} from '../core.js';
 
 test('Initial State', () => {
   const state = getInitial();
@@ -90,6 +90,7 @@ test('Collections - Free', () => {
         "content": [["card","cardId1","x","y","angle"],
           ["card","cardId2","x","y","angle"],
           ["card","cardId3","x","y","angle"],
+          ["card","cardId3","x","y","angle"],
           ["counter","counterId1","x","y","angle"]],
         "visibility": ["you", "opponent"],
         "control": ["you", "opponent"],
@@ -97,13 +98,46 @@ test('Collections - Free', () => {
       }
     }
   }));
-  const nextState_content_rm = modCollection(state, "board_both", "content", "cardId3","rm", "card");
+  const nextState_content_rm = modCollection(state, "board_both", "content", ["card","cardId3","x","y","angle"],"rm", "card");
   expect(nextState_content_rm).toEqual(Map(fromJS({
     "collections": {
       "board_both": {
         "content": [["card","cardId1","x","y","angle"],
           ["card","cardId2","x","y","angle"],
+          ["card","cardId3","x","y","angle"],
           ["counter","counterId1","x","y","angle"]],
+        "visibility": ["you", "opponent"],
+        "control": ["you", "opponent"],
+        "layout": "free"
+      }
+    }
+  })));
+});
+
+test('Collections - Free chg', () => {
+  const state = Map(fromJS({
+    "collections": {
+      "board_both": {
+        "content": [["card","cardId1","x","y","angle"],
+          ["card","cardId2","x","y","angle"],
+          ["card","cardId3","x","y","angle"],
+          ["card","cardId3","x","y","angle"],
+          ["counter","counterId1","x","y","angle"]],
+        "visibility": ["you", "opponent"],
+        "control": ["you", "opponent"],
+        "layout": "free"
+      }
+    }
+  }));
+  const nextState_content_chg = modCollection(state, "board_both", "content", ["card","cardId3",5,25,60],"chg", ["card","cardId3","x","y","angle"],);
+  expect(nextState_content_chg).toEqual(Map(fromJS({
+    "collections": {
+      "board_both": {
+        "content": [["card","cardId1","x","y","angle"],
+          ["card","cardId2","x","y","angle"],          
+          ["card","cardId3","x","y","angle"],
+          ["counter","counterId1","x","y","angle"],
+          ["card","cardId3",5,25,60]],
         "visibility": ["you", "opponent"],
         "control": ["you", "opponent"],
         "layout": "free"

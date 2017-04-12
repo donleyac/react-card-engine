@@ -4,7 +4,7 @@ export default function reducer(state = INITIAL_STATE,action){
     case 'INITIAL_STATE':
       return getInitial();
     case 'INDICATORS':
-      return modIndicator(state, action.playerId, action.indicator, action.modifier);
+      return modIndicator(state, action.playerId, action.indicator, action.value, action.op);
     case 'COLLECTIONS':
       return modCollection(state, action.collection, action.property, action.value, action.op, action.category);
   }
