@@ -1,5 +1,5 @@
 import config from './initial.json';
-import {fromJS, List, Map} from 'immutable';
+import {Iterable, fromJS, List, Map,is} from 'immutable';
 
 export const INITIAL_STATE = getInitial();
 export function getInitial() {
@@ -22,27 +22,23 @@ export function modIndicator(state, playerId, label, value, op){
   }
 }
 export function modCollection(state, collect, prop, val, op, misc){
-  if(state.getIn(["collections",collect,"layout"])==="free" && prop==="content"){
-    if(op==="add"){
-      return state.updateIn(
-       ["collections", collect, prop],
-       0,
-       content => content.push(val));
-    }
-    else if(op==="rm"){
-      return state.updateIn(
-        ["collections", collection , property],
-        0,
-        content => content.delete(content.findIndex(val))
-        // content => content.filter(row => (row.get(0)!=misc || row.get(1)!=val)));
-    }
-    //Replace list, mainly for re-ordering
-    else {
-      return state.updateIn(
-        ["collections", collect, prop],
-        0,
-        content => val
-    }
+  let remove = function(curr, target){
+    return curr.delete(curr.findIndex(function(elem){
+      //2D content array check
+      if(Iterable.isIterable(elem)){
+        return is(elem, List(target));
+      }
+      else {
+        return is(elem, target);
+      }
+    }));
+  }
+  if(state.getIn(["collections",collect,"layout"])==="free" && prop==="content" && op==="chg"){
+    //misc represents the actual target that needs to change, remove it and add the new val(pos)
+    return state.updateIn(
+      ["collections", collect, prop],
+      0,
+      content => remove(content, misc).push(List(val)));
   }
   else {
     if(op==="add"){
@@ -55,15 +51,14 @@ export function modCollection(state, collect, prop, val, op, misc){
       return state.updateIn(
         ["collections", collect, prop],
         0,
-        content => content.delete(content.findIndex(val))
-        // content => content.filter(elem => elem!=val));
+        content => remove(content, val));
     }
     //Replace list, mainly for re-ordering
     else {
       return state.updateIn(
         ["collections", collect, prop],
         0,
-        content => val
+        content => val);
     }
   }
 }
