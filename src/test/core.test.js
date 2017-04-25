@@ -87,25 +87,25 @@ test('Collections - Free', () => {
   const state = Map(fromJS({
     "collections": {
       "board_both": {
-        "content": [["card","cardId1","x","y","angle"],
-          ["card","cardId2","x","y","angle"],
-          ["card","cardId3","x","y","angle"],
-          ["card","cardId3","x","y","angle"],
-          ["counter","counterId1","x","y","angle"]],
+        "content": [["card","cardId1","x","y","angle","contentid1"],
+          ["card","cardId2","x","y","angle","contentid2"],
+          ["card","cardId3","x","y","angle","contentid3"],
+          ["card","cardId3","x","y","angle","contentid4"],
+          ["counter","counterId1","x","y","angle","contentid5"]],
         "visibility": ["you", "opponent"],
         "control": ["you", "opponent"],
         "layout": "free"
       }
     }
   }));
-  const nextState_content_rm = modCollection(state, "board_both", "content", ["card","cardId3","x","y","angle"],"rm", "card");
+  const nextState_content_rm = modCollection(state, "board_both", "content", ["card","cardId3","x","y","angle","contentid3"],"rm");
   expect(nextState_content_rm).toEqual(Map(fromJS({
     "collections": {
       "board_both": {
-        "content": [["card","cardId1","x","y","angle"],
-          ["card","cardId2","x","y","angle"],
-          ["card","cardId3","x","y","angle"],
-          ["counter","counterId1","x","y","angle"]],
+        "content": [["card","cardId1","x","y","angle", "contentid1"],
+          ["card","cardId2","x","y","angle","contentid2"],
+          ["card","cardId3","x","y","angle","contentid4"],
+          ["counter","counterId1","x","y","angle","contentid5"]],
         "visibility": ["you", "opponent"],
         "control": ["you", "opponent"],
         "layout": "free"
@@ -118,26 +118,26 @@ test('Collections - Free chg', () => {
   const state = Map(fromJS({
     "collections": {
       "board_both": {
-        "content": [["card","cardId1","x","y","angle"],
-          ["card","cardId2","x","y","angle"],
-          ["card","cardId3","x","y","angle"],
-          ["card","cardId3","x","y","angle"],
-          ["counter","counterId1","x","y","angle"]],
+        "content": [["card","cardId1","x","y","angle", "contentid1"],
+          ["card","cardId2","x","y","angle","contentid2"],
+          ["card","cardId3","x","y","angle","contentid3"],
+          ["card","cardId3","x","y","angle","contentid4"],
+          ["counter","counterId1","x","y","angle","contentid5"]],
         "visibility": ["you", "opponent"],
         "control": ["you", "opponent"],
         "layout": "free"
       }
     }
   }));
-  const nextState_content_chg = modCollection(state, "board_both", "content", ["card","cardId3",5,25,60],"chg", ["card","cardId3","x","y","angle"],);
+  const nextState_content_chg = modCollection(state, "board_both", "content", ["card","cardId3",5,25,60,"contentid3"],"chg");
   expect(nextState_content_chg).toEqual(Map(fromJS({
     "collections": {
       "board_both": {
-        "content": [["card","cardId1","x","y","angle"],
-          ["card","cardId2","x","y","angle"],          
-          ["card","cardId3","x","y","angle"],
-          ["counter","counterId1","x","y","angle"],
-          ["card","cardId3",5,25,60]],
+        "content": [["card","cardId1","x","y","angle", "contentid1"],
+          ["card","cardId2","x","y","angle","contentid2"],
+          ["card","cardId3",5,25,60,"contentid3"],
+          ["card","cardId3","x","y","angle","contentid4"],
+          ["counter","counterId1","x","y","angle","contentid5"]],
         "visibility": ["you", "opponent"],
         "control": ["you", "opponent"],
         "layout": "free"

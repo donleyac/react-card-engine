@@ -52,10 +52,10 @@
       "layout": "stacked"
     },
     "gameboard": {
-      "content": [["card","ace",50, 100, 0],
-        ["card","ace",40,200,0],
-        ["card","king",20,150,0],
-        ["counter","heart",30,60,0]],
+      "content": [["card","ace",50, 100, 0,"cnt1"],
+        ["card","ace",40,200,0,"cnt2"],
+        ["card","king",20,150,0,"cnt3"],
+        ["counter","heart",30,60,0,"cnt4"]],
       "visibility": ["you", "opponent"],
       "control": ["you", "opponent"],
       "layout": "free"

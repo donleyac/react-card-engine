@@ -21,24 +21,31 @@ export function modIndicator(state, playerId, label, value, op){
     );
   }
 }
-export function modCollection(state, collect, prop, val, op, misc){
-  let remove = function(curr, target){
-    return curr.delete(curr.findIndex(function(elem){
-      //2D content array check
+export function modCollection(state, collect, prop, val, op){
+  //need to cast val to immutable for add and comparisons
+  if(val instanceof Array){
+    val = List(val);
+  }
+  let findIndex = function(curr,target){
+    return curr.findIndex(function(elem){
       if(Iterable.isIterable(elem)){
-        return is(elem, List(target));
+        return is(elem.get(5), target.get(5));
       }
       else {
         return is(elem, target);
       }
-    }));
+    })
+  }
+  let remove = function(curr, target){
+    console.log("findIndex",findIndex(curr,target));
+    return curr.delete(findIndex(curr,target));
   }
   if(state.getIn(["collections",collect,"layout"])==="free" && prop==="content" && op==="chg"){
     //misc represents the actual target that needs to change, remove it and add the new val(pos)
     return state.updateIn(
       ["collections", collect, prop],
       0,
-      content => remove(content, misc).push(List(val)));
+      content => content.set(findIndex(content, val), val));
   }
   else {
     if(op==="add"){
