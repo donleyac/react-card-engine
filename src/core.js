@@ -37,11 +37,9 @@ export function modCollection(state, collect, prop, val, op){
     })
   }
   let remove = function(curr, target){
-    console.log("findIndex",findIndex(curr,target));
     return curr.delete(findIndex(curr,target));
   }
   if(state.getIn(["collections",collect,"layout"])==="free" && prop==="content" && op==="chg"){
-    //misc represents the actual target that needs to change, remove it and add the new val(pos)
     return state.updateIn(
       ["collections", collect, prop],
       0,
