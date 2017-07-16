@@ -39,6 +39,7 @@ export function modCollection(state, collect, prop, val, op){
   let remove = function(curr, target){
     return curr.delete(findIndex(curr,target));
   }
+  //TODO Method is already generic, may be able to work with just a unique operation
   if(state.getIn(["collections",collect,"layout"])==="free" && prop==="content" && op==="chg"){
     return state.updateIn(
       ["collections", collect, prop],
